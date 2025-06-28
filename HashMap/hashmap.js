@@ -1,10 +1,14 @@
+// This first class is the node which defines what each node in the key value pair can hold as well as the pointer to the next if there is a collision
 class Node {
+
   constructor(key, value, next = null) {
     this.key = key;
     this.value = value;
     this.next = next;
   }
 }
+// This is the hashmap class which is constructed with a loadFactor of 75% meaning if the capacity ( the amount of data that can be stored) reaches 75% it will call a function called resize to double the size of the HashMap and issue out new hashes for the keys. 
+// table initializes the table
 class HashMap {
   constructor(loadFactor = 0.75, capcity = 16) {
     this.loadfactor = loadFactor;
@@ -12,7 +16,7 @@ class HashMap {
     this.capcity = capcity;
     this.size = 0;
   }
-
+// our hash function 
   hash(key) {
     let hashCode = 0;
 
@@ -22,7 +26,7 @@ class HashMap {
     }
     return hashCode;
   }
-
+// creates a new double the size table and maps each bucket from the oldTable to the new table 
   resize() {
     const oldTable = this.table;
     this.capcity *= 2;
@@ -38,6 +42,7 @@ class HashMap {
     }
   }
 
+  // sets a value in the table, checks if it is in the table first to overwrite the data there, if not creates a new Node. 
   set(key, value) {
     const index = this.hash(key);
     const headBucket = this.table[index];
